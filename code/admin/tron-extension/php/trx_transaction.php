@@ -1,7 +1,7 @@
 <?php
 /* --------------------------------------------------------------
    Tron Europe Dev Team
-   Filename: blockchain_sync.php 
+   Filename: trx_transaction.php 
    
    15.09.2018 - Init Version
    
@@ -23,33 +23,50 @@
    --------------------------------------------------------------*/
 
 	// include external library
-	include '/var/www/html/admin/tron-extension/php/inc/global_lib.php';
-	include '/var/www/html/admin/tron-extension/php/inc/global_settings.php';
-
-	// set default timezone
-	date_default_timezone_set('europe/berlin');
+	include 'inc/global_lib.php';
+	include 'inc/global_settings.php';
+	include 'trx_transaction.var.php';
 
 	//create dbconnection
 	$dbconn = dbconnect($dbname[0]);
 	
 	// check dbconnection
 	if (dbconncheck($dbconn)) {
-		
-		// vars set to default
-		$autosync = 0;	
-		
+				
 		// init curl connection
-		$curlconn = curl_init();	
+		$curlconn = curl_init();
 		
 		// read shop address
-		$shop_wallet_address = getdbparameter('shopaddress');	
+		$shop_wallet_address = getdbparameter('shopaddress');
 		
-		// db blockchain sync
-		blockchainsync($dbconn,$curlconn,$shop_wallet_address);	
+		// vars set to default
+		$autosync = 0;
+		
+		// page header
+		echo '<table border="0" width="100%" cellspacing="0" cellpadding="2">
+			  <tr><td><div class="pageHeading">'.fieldvalue('WALLET_TRANSACTIONS').'</div></td></tr></table>';
+			  
+		// autosync check
+		if (isset($_GET['autosync'])){
+			$autosync = $_GET['autosync'];
+		}
+		
+		// blockchain sync
+		if ((getdbparameter('autosync')==1) || ($autosync==1)){
+		blockchainsync($dbconn,$curlconn,$shop_wallet_address);
+		}
+		
+		// generate transaction table
+		blockchain_gen_transtbl($dbconn,$column);
+
+		// generate blockchain sync button
+		echo system_gen_syncbutton('/admin/tron_wallet_transactions.php?autosync=1','Blockchain Sync','Last Sync : '.getdbparameter('syncdatacount'));
 		
 		// close request to clear up curl resources
 		curl_close($curlconn);
-		mysqli_close($dbconn);
 	}
-
+	
+	// close request to clear up mysql resources
+	mysqli_close($dbconn);
+	
 ?>
