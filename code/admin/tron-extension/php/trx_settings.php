@@ -44,10 +44,19 @@
 			if (isset($_GET['ordersync'])) setdbparameter('ordersync', '1'); else setdbparameter('ordersync', '0'); 
 			
 			// display transactions with purpose only
-			if (isset($_GET['tblonlytransnote'])) setdbparameter('tblonlytransnote', $_GET['tblonlytransnote']); else setdbparameter('tblonlytransnote', '0'); 
+			if (isset($_GET['tblonlytransnote'])) setdbparameter('tblonlytransnote', '1'); else setdbparameter('tblonlytransnote', '0'); 
 			
 			// tron wallet shop address
 			if (isset($_GET['shopaddress'])) setdbparameter('shopaddress', $_GET['shopaddress']); else setdbparameter('shopaddress', ''); 
+			
+			// regex for ordernumber
+			if (isset($_GET['ordernumberregex'])) setdbparameter('ordernumberregex', $_GET['ordernumberregex']); else setdbparameter('ordernumberregex', '\d+'); 
+			
+			// assignment by bill number
+			if (isset($_GET['assignmentbybillnumber'])) setdbparameter('assignmentbybillnumber', '1'); else setdbparameter('assignmentbybillnumber', '0'); 
+			
+			// regex for bill number
+			if (isset($_GET['billnumberregex'])) setdbparameter('billnumberregex', $_GET['billnumberregex']); else setdbparameter('billnumberregex', 'R\_\d+\_\d+'); 
 		}
 
 		// menue informations
@@ -55,7 +64,7 @@
 		
 		// generate table
 		echo '<td class="boxCenter" width="100%" valign="top">
-					<div class="pageHeading" float: none; left: 200px; top: 46px; position: fixed;">'.fieldvalue('BLOCKCHAIN_DEFAULTSETTINGS').'</div>
+					<div class="pageHeading" float: none; left: 200px; top: 46px; position: fixed;">'.fieldvalue('BLOCKCHAIN_DEFAULTSETTINGS','language').'</div>
 					<div class="main" >
 						<form action="'.xtc_href_link('tron_wallet_configuration.php', 'content='.$_GET['content']).' method="post">
 						<table width="50%" cellspacing="0" cellpadding="0"><tbody><tr class="gx-container"><td>
@@ -64,7 +73,7 @@
 									</table>
 							</td></tr></tbody></table>						
 						<div class="grid bottom-save-bar-content">
-							<input type="submit" class="button btn btn-primary pull-right" name="action" value="'.fieldvalue('GLOBAL_SAVE').'"/>
+							<input type="submit" class="button btn btn-primary pull-right" name="action" value="'.fieldvalue('GLOBAL_SAVE','language').'"/>
 						</div>
 						</form>
 					</div>

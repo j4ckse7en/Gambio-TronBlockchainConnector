@@ -1,0 +1,131 @@
+/* --------------------------------------------------------------
+   Tron Europe Dev Team
+   Filename: tron_wallet_transactions.php 
+   
+   15.09.2018 - Init Version
+   
+   Released under the GNU General Public License (Version 2)
+   [http://www.gnu.org/licenses/gpl-2.0.html]
+
+   IMPORTANT! THIS FILE IS DEPRECATED AND WILL BE REPLACED IN THE FUTURE. 
+   MODIFY IT ONLY FOR FIXES. DO NOT APPEND IT WITH NEW FEATURES, USE THE
+   NEW GX-ENGINE LIBRARIES INSTEAD.
+   --------------------------------------------------------------
+
+   based on:
+   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
+   (c) 2002-2003 osCommerce(orders_status.php,v 1.19 2003/02/06); www.oscommerce.com
+   (c) 2003	 nextcommerce (orders_status.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2003 XT-Commerce - community made shopping http://www.xt-commerce.com ($Id: orders_status.php 1125 2005-07-28 09:59:44Z novalis $)
+
+   Released under the GNU General Public License
+   --------------------------------------------------------------*/
+<style>
+		
+	/* label (success) */	
+	.label-success {
+		color: #FFF !important;
+		background-color: #45a845 !important;
+		background-image: none;
+	}
+	
+	/* label (error) */
+	.label-error {
+		color: #FFF !important;
+		background-color: #e0412c !important;
+		background-image: none;
+	}
+	
+	/* label (processing) */
+	.label-processing {
+		color: #333 !important;
+		background-color: #f5ae49 !important;
+		background-image: none;
+	}
+	
+	/* td table */
+	.td-global{
+		height: 25px;
+	}
+
+	/* td title */
+	.td-title{
+		width: 200px
+	}
+		
+	 /* trx modal background */
+	.trx-modal {
+		display: none;
+		position: fixed; 
+		z-index: 1; 
+		padding-top: 100px; 
+		left: 0;
+		top: 0;
+		width: 100%; 
+		height: 100%; 
+		overflow: auto; 
+		background-color: rgb(0,0,0); 
+		background-color: rgba(0,0,0,0.4); 
+	}
+	
+	/* trx modal header content */
+	.trx-modal-header {
+		font-size: 12px;
+		font-weight: bold;
+		background-color: #ebebeb;
+		margin: auto;
+		padding: 20px;
+		width: 700px;	
+		height: 45px;
+		padding: 12px 24px;
+		border-bottom-color: currentcolor;
+		border-bottom-style: none;
+		border-bottom-width: medium;
+		border-bottom: 1px solid #e7e7e7;
+	}
+	
+	/* trx modal main content */
+	.trx-modal-content{
+		background-color: #ffffff;
+		margin: auto;
+		padding: 20px;
+		width: 700px;	
+		padding: 12px 24px;
+		border-bottom-color: currentcolor;
+		border-bottom-style: none;
+		border-bottom-width: medium;
+		border-bottom: 1px solid #e7e7e7;
+	}
+	
+	/* trx modal transaction content */
+	.content-transaction{	
+		height: 230px;
+	}
+	
+	/* trx modal order content */
+	.content-order{	
+		height: 120px;
+	}
+	
+	/* trx modal order content */
+	.content-order-useraction{	
+		height: 80px;
+	}
+
+	/* trx close */
+	.trx-close {
+		float: right;
+		color: #aaaaaa;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	
+	/* trx close action */
+	.trx-close:hover,
+	.trx-close:focus {
+		color: #000;
+		text-decoration: none;
+		cursor: pointer;
+	}
+		
+</style>
